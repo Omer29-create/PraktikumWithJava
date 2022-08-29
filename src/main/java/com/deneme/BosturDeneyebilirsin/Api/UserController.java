@@ -12,19 +12,19 @@ public class UserController {
     private final UserService userService;
 
     public UserController(UserService userService) {
-
         this.userService = userService;
     }
 
     @GetMapping(path = "/get")
     public static void getir() {
+
+
     }
 
     @GetMapping(path = "/post")
     public static void gonder() {
+
+
     }
 
-    // get, post, put, delete yazilacak ve calisir vaziyette olacak
-    // UnitTest yazilacak => JUnit 5 kullanilacak
-    // Mockito Framework bakilacak
 }
