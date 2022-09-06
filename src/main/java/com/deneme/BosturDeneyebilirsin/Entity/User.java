@@ -1,32 +1,44 @@
 package com.deneme.BosturDeneyebilirsin.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "abc")
+@Table(name = "User_Table")
+@ToString
+@Data
 public class User {
 
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column(name = "isim")
-    private String name;
-    @Column(name = "soyIsim")
-    private String soyIsim;
-    @Column(name = "adres")
-    private String adres;
-    @Column(name = "telefon")
-    private int telefon;
+    @Column(name = "userId", nullable = false)
+    private Long userId;
+    @Column(name = "firstName")
+    private String firstName;
+    @Column(name = "lastName")
+    private String lastName;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "mobilePhoneNumber")
+    private int mobilePhoneNumber;
+    @Column(name = "Date")
+    private Date createdDate;
+    @Column(name = "securityNumber")
+    private int securityNumber;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "isSingle")
+    private boolean isSingle;
 
+
+
+    @OneToMany(targetEntity = Book.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cp_fk", referencedColumnName = "userId")
+    private List<Book> books;
 
 
 }
