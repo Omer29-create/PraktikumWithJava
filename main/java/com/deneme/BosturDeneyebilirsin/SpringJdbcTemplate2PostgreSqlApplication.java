@@ -26,5 +26,4 @@ public class SpringJdbcTemplate2PostgreSqlApplication implements CommandLineRunn
             System.out.println("A new row has been inserted.");
         }
     }
-
 }
