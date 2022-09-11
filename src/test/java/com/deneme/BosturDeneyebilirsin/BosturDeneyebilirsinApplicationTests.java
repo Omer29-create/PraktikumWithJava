@@ -8,6 +8,7 @@ class BosturDeneyebilirsinApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

@@ -1,33 +1,42 @@
 package com.deneme.BosturDeneyebilirsin.Entity;
 
-import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
 import java.util.Date;
 
-@Data
-@ToString
-@Entity
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "Book_Table")
+@Entity
+@Table(name = "tbl_book")
 public class Book {
-
     @Id
-    @Column(name = "bookId", nullable = false)
-    private Long bookId;
-    @Column(name = "writer")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @OneToOne(mappedBy = "book")
+    private User user;
+
+
     private String writer;
-    @Column(name = "publishDate")
     private Date publishDate;
-    @Column(name = "bookPageCount")
-    private String bookPageCount;
-    @Column(name = "bookVersion")
-    private int bookVersion;
-    @Column(name = "isEpubVersionExist")
+    private int pageCount;
+    private String bookVersion;
     private boolean isEpubVersionExist;
+
+
+    public Book(String writer, Date publishDate, int pageCount, String bookVersion, boolean isEpubVersionExist) {
+        this.writer = writer;
+        this.publishDate = publishDate;
+        this.pageCount = pageCount;
+        this.bookVersion = bookVersion;
+        this.isEpubVersionExist = isEpubVersionExist;
+    }
+
 
 }

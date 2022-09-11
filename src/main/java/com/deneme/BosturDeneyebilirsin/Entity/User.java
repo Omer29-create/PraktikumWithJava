@@ -1,44 +1,50 @@
 package com.deneme.BosturDeneyebilirsin.Entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
-@Entity
+
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "User_Table")
-@ToString
-@Data
+@Entity
+@Table(name = "abc")
 public class User {
 
     @Id
-    @Column(name = "userId", nullable = false)
-    private Long userId;
-    @Column(name = "firstName")
-    private String firstName;
-    @Column(name = "lastName")
-    private String lastName;
-    @Column(name = "address")
-    private String address;
-    @Column(name = "mobilePhoneNumber")
-    private int mobilePhoneNumber;
-    @Column(name = "Date")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_book",
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+            @JoinColumn(name = "book_id", referencedColumnName = "id")})
+    private Book book;
+
     private Date createdDate;
-    @Column(name = "securityNumber")
     private int securityNumber;
-    @Column(name = "email")
+    private String firstName;
+    private String lastName;
     private String email;
-    @Column(name = "isSingle")
+    private String address;
+    private String mobilePhoneNumber;
     private boolean isSingle;
 
 
+    public User(Date createdDate, int securityNumber, String firstName, String lastName, String email, String address, String mobilePhoneNumber, boolean isSingle) {
 
-    @OneToMany(targetEntity = Book.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cp_fk", referencedColumnName = "userId")
-    private List<Book> books;
+        this.createdDate = createdDate;
+        this.securityNumber = securityNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.isSingle = isSingle;
+    }
 
 
 }

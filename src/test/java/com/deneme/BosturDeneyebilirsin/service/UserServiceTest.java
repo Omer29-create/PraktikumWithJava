@@ -2,72 +2,95 @@ package com.deneme.BosturDeneyebilirsin.service;
 
 import com.deneme.BosturDeneyebilirsin.Entity.User;
 import com.deneme.BosturDeneyebilirsin.Repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.util.Assert;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTest {
+
 
     @Mock
-   private UserRepository userRepository;
-    // private AutoCloseable autoCloseable;
-   private UserService userService;
+    private UserRepository userRepository;
 
-    void setUp() {
-        // autoCloseable = MockitoAnnotations.openMocks(this);
-        userService = new UserService(userRepository);
+    @Mock
+    private UserService underTest;
+
+    @BeforeEach
+    void setUp(){
+        underTest = new UserService(userRepository);
     }
 
     @Test
     void canAddNewUser() {
-        // GIVEN
+        //given
         User user = new User();
 
-        // WHEN
-        userService.addNewUser(user);
+        //when
+        underTest.addNewUser(user);
 
-        // THEN
-        ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
+        //then
+        ArgumentCaptor<User> userArgumentCaptor =
+        ArgumentCaptor.forClass(User.class);
 
         verify(userRepository).save(userArgumentCaptor.capture());
 
         User capturedUser = userArgumentCaptor.getValue();
-        // Assert.assertThat(capturedUser).isEqualTo(user);
+        assertThat(capturedUser).isEqualTo(user);
+
+
     }
 
     @Test
     void canGetAllUser() {
-        // WHEN
-        userService.getAllUser();
-
-        // THEN
+        //when
+        underTest.getAllUser();
+        //then
         verify(userRepository).findAll();
     }
 
     @Test
-    void getUserById() {
-        userService.getUserById(123L);
-        verify(userRepository).getUserById(123L);
+    void canGetUserById() {
+        Long id = 12L;
+       User result = new User();
+       result.setId(id);
+       when(userRepository.findById(id)).thenReturn(Optional.of(result));
+       underTest.getUserById(id);
+       verify(userRepository).findById(id);
+
     }
 
     @Test
-    void updateUser(User user) {
-        userService.updateUser(user);
-        verify(userRepository).updateUserById(user);
+    void updateUser() {
+        User user = new User();
+
+       user.setEmail("abc@gmail.com");
+
+
+       when(userRepository.save(user)).thenReturn(user);
+        underTest.updateUser(user);
+       verify(userRepository).save(user);
+
+
     }
 
     @Test
-    void deleteUserById(Long id) {
-        userService.deleteUserById(id);
-        verify(userRepository).deleteById(id);
+    void deleteUserById() {
+        Long id = 15L;
+
+        User user = new User();
+        underTest.deleteUserById(id);
+        verify(userRepository).deleteById(15L);
+
     }
 }
