@@ -26,7 +26,4 @@ public class User {
     private String adres;
     @Column(name = "telefon")
     private int telefon;
-
-
-
 }
