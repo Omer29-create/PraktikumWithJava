@@ -22,6 +22,7 @@ public class SpringJdbcTemplate2PostgreSqlApplication implements CommandLineRunn
                 + "'Nam Ha Minh', 'nam@codejava.net')";
 
         int rows = jdbcTemplate.update(sql);
+        
         if (rows > 0) {
             System.out.println("A new row has been inserted.");
         }
