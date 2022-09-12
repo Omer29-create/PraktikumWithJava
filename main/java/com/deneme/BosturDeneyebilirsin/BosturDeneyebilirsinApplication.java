@@ -9,5 +9,4 @@ public class BosturDeneyebilirsinApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BosturDeneyebilirsinApplication.class, args);
 	}
-
 }
