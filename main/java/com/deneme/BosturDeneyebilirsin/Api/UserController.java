@@ -23,6 +23,5 @@ public class UserController {
 
     @GetMapping(path = "/post")
     public static void gonder() {
-
     }
 }
