@@ -18,7 +18,6 @@ public class UserController {
     @GetMapping(path = "/get")
     public static void getir() {
 
-
     }
 
     @GetMapping(path = "/post")
